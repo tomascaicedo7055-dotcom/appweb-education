@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salud Escolar - Guía Educativa</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f8f6;
+            color: #263238;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #00796b, #26a69a);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.3rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        nav {
+            background: #004d40;
+            padding: 12px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 6px solid #ffb300;
+            padding: 18px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+            margin-bottom: 40px;
+        }
+
+        .search-box h2 {
+            color: #00796b;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            margin-top: 15px;
+            padding: 15px;
+            border: 2px solid #b2dfdb;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 13px 22px;
+            border: none;
+            border-radius: 8px;
+            background: #00796b;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #004d40;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #e0f2f1;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .result h3 {
+            color: #00695c;
+            margin-bottom: 10px;
+        }
+
+        .health-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.08);
+            border-top: 5px solid #26a69a;
+        }
+
+        .card h3 {
+            color: #00796b;
+            margin-bottom: 10px;
+        }
+
+        .card ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .danger {
+            border-top-color: #e53935;
+        }
+
+        .danger h3 {
+            color: #c62828;
+        }
+
+        .prevention {
+            background: #e8f5e9;
+            padding: 25px;
+            margin-top: 40px;
+            border-radius: 15px;
+        }
+
+        .prevention li {
+            margin: 8px 0;
+            margin-left: 20px;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 25px;
+            text-align: center;
+            background: #263238;
+            color: white;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #b2dfdb;
+            color: #004d40;
+            padding: 4px 9px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🩺 Salud Escolar</h1>
+    <p>
+        Aprende sobre algunos problemas de salud que pueden afectar a niños,
+        adolescentes y jóvenes durante la etapa escolar.
+    </p>
+</header>
+
+<nav>
+    <a href="#buscador">Buscador</a>
+    <a href="#problemas">Problemas de salud</a>
+    <a href="#prevencion">Prevención</a>
+</nav>
+
+<div class="container">
+
+    <div class="warning">
+        <strong>⚠️ Importante:</strong>
+        Esta aplicación es educativa y no reemplaza un diagnóstico médico.
+        Los síntomas pueden tener diferentes causas. Si existe preocupación
+        por la salud de un estudiante, se debe hablar con un adulto responsable
+        y consultar a un profesional sanitario.
+    </div>
+
+    <section id="buscador" class="search-box">
+        <h2>🔎 ¿Qué síntoma o problema quieres investigar?</h2>
+
+        <p>
+            Escribe uno o varios síntomas. La aplicación buscará coincidencias
+            dentro de su base de información educativa.
+        </p>
+
+        <textarea
+            id="symptomInput"
+            placeholder="Ejemplo: dolor de cabeza y cansancio"
+        ></textarea>
+
+        <button onclick="buscarProblema()">
+            Buscar información
+        </button>
+
+        <div id="resultado" class="result"></div>
+    </section>
+
+    <section id="problemas">
+        <h2>📚 Problemas de salud frecuentes en el entorno escolar</h2>
+
+        <br>
+
+        <div class="health-grid">
+
+            <article class="card">
+                <h3>🥗 Mala alimentación</h3>
+
+                <p>
+                    Una alimentación poco equilibrada puede afectar la energía,
+                    concentración y crecimiento.
+                </p>
+
+                <span class="tag">Nutrición</span>
+                <span class="tag">Alimentación</span>
+
+                <ul>
+                    <li>Saltarse comidas.</li>
+                    <li>Consumir pocos alimentos nutritivos.</li>
+                    <li>Exceso de alimentos ultraprocesados.</li>
+                    <li>Bajo consumo de frutas y verduras.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>⚖️ Sobrepeso y obesidad</h3>
+
+                <p>
+                    Son condiciones relacionadas con un exceso de grasa corporal.
+                    Su evaluación debe considerar edad, crecimiento y otros
+                    factores, especialmente en niños y adolescentes.
+                </p>
+
+                <ul>
+                    <li>Alimentación desequilibrada.</li>
+                    <li>Actividad física insuficiente.</li>
+                    <li>Factores familiares y ambientales.</li>
+                    <li>Factores metabólicos y sociales.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>🧠 Depresión y bajo estado de ánimo</h3>
+
+                <p>
+                    Los cambios persistentes en el estado de ánimo pueden afectar
+                    la vida escolar, familiar y social.
+                </p>
+
+                <ul>
+                    <li>Tristeza persistente.</li>
+                    <li>Pérdida de interés en actividades.</li>
+                    <li>Cambios en el sueño.</li>
+                    <li>Cambios en el apetito.</li>
+                    <li>Cansancio o falta de energía.</li>
+                    <li>Dificultades para concentrarse.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>😰 Ansiedad y estrés</h3>
+
+                <p>
+                    El estrés puede aparecer por exámenes, problemas familiares,
+                    presión social, cambios importantes u otras situaciones.
+                </p>
+
+                <ul>
+                    <li>Preocupación excesiva.</li>
+                    <li>Nerviosismo.</li>
+                    <li>Dificultad para dormir.</li>
+                    <li>Dolor de cabeza.</li>
+                    <li>Dolor de estómago.</li>
+                    <li>Dificultad para concentrarse.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>🧼 Higiene personal</h3>
+
+                <p>
+                    Una higiene adecuada ayuda a reducir determinados riesgos
+                    de infecciones y problemas de salud.
+                </p>
+
+                <ul>
+                    <li>Lavado frecuente de manos.</li>
+                    <li>Baño regular.</li>
+                    <li>Higiene dental.</li>
+                    <li>Ropa limpia.</li>
+                    <li>Cuidado de uñas.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>🦷 Salud dental</h3>
+
+                <p>
+                    Las caries y otros problemas bucales pueden afectar la
+                    alimentación, el sueño y la calidad de vida.
+                </p>
+
+                <ul>
+                    <li>Dolor dental.</li>
+                    <li>Sensibilidad.</li>
+                    <li>Sangrado de encías.</li>
+                    <li>Mal aliento persistente.</li>
+                    <li>Manchas o agujeros en los dientes.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>😴 Falta de sueño</h3>
+
+                <p>
+                    Dormir adecuadamente es importante para el aprendizaje,
+                    memoria, estado de ánimo y funcionamiento diario.
+                </p>
+
+                <ul>
+                    <li>Cansancio durante el día.</li>
+                    <li>Dificultad para concentrarse.</li>
+                    <li>Irritabilidad.</li>
+                    <li>Dificultad para despertarse.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>🤧 Infecciones respiratorias</h3>
+
+                <p>
+                    Los ambientes escolares facilitan el contacto cercano entre
+                    muchas personas, por lo que pueden circular infecciones
+                    respiratorias.
+                </p>
+
+                <ul>
+                    <li>Tos.</li>
+                    <li>Dolor de garganta.</li>
+                    <li>Congestión nasal.</li>
+                    <li>Fiebre.</li>
+                    <li>Malestar general.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>👀 Problemas de visión</h3>
+
+                <p>
+                    Algunos problemas visuales pueden dificultar la lectura,
+                    escritura y participación en clase.
+                </p>
+
+                <ul>
+                    <li>Visión borrosa.</li>
+                    <li>Dolor de cabeza frecuente.</li>
+                    <li>Dificultad para leer de lejos.</li>
+                    <li>Entrecerrar los ojos para ver.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>🦴 Problemas posturales</h3>
+
+                <p>
+                    Mantener determinadas posiciones durante mucho tiempo puede
+                    generar molestias musculares.
+                </p>
+
+                <ul>
+                    <li>Dolor de espalda.</li>
+                    <li>Dolor de cuello.</li>
+                    <li>Tensión muscular.</li>
+                    <li>Mala postura al estudiar.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>🤕 Dolores de cabeza</h3>
+
+                <p>
+                    El dolor de cabeza puede tener muchas causas, como falta de
+                    sueño, estrés, deshidratación, problemas visuales o
+                    diferentes enfermedades.
+                </p>
+
+                <ul>
+                    <li>Dolor en la cabeza.</li>
+                    <li>Sensibilidad a la luz.</li>
+                    <li>Náuseas en algunos casos.</li>
+                    <li>Cansancio.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>💧 Deshidratación</h3>
+
+                <p>
+                    Puede ocurrir cuando el organismo pierde más líquidos de los
+                    que recibe.
+                </p>
+
+                <ul>
+                    <li>Sed.</li>
+                    <li>Boca seca.</li>
+                    <li>Cansancio.</li>
+                    <li>Orina más oscura.</li>
+                    <li>Mareo.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>🏃 Falta de actividad física</h3>
+
+                <p>
+                    Mantenerse físicamente activo es importante para la salud
+                    física y mental.
+                </p>
+
+                <ul>
+                    <li>Muchas horas sentado.</li>
+                    <li>Poco movimiento durante el día.</li>
+                    <li>Escasa participación en actividades físicas.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>🧴 Problemas de piel</h3>
+
+                <p>
+                    Durante la adolescencia pueden aparecer diferentes
+                    alteraciones de la piel, incluyendo acné.
+                </p>
+
+                <ul>
+                    <li>Acné.</li>
+                    <li>Enrojecimiento.</li>
+                    <li>Picazón.</li>
+                    <li>Sequedad.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h3>🤝 Bullying y salud mental</h3>
+
+                <p>
+                    El acoso escolar puede afectar el bienestar emocional,
+                    social y académico de una persona.
+                </p>
+
+                <ul>
+                    <li>Miedo a asistir a clase.</li>
+                    <li>Aislamiento.</li>
+                    <li>Tristeza.</li>
+                    <li>Ansiedad.</li>
+                    <li>Cambios en el rendimiento escolar.</li>
+                </ul>
+            </article>
+
+            <article class="card danger">
+                <h3>🚨 Señales de alarma</h3>
+
+                <p>
+                    Algunos síntomas requieren atención profesional rápida.
+                </p>
+
+                <ul>
+                    <li>Dificultad importante para respirar.</li>
+                    <li>Pérdida de conocimiento.</li>
+                    <li>Convulsiones.</li>
+                    <li>Dolor intenso o repentino.</li>
+                    <li>Confusión importante.</li>
+                    <li>Lesiones graves.</li>
+                    <li>Pensamientos de hacerse daño o suicidio.</li>
+                </ul>
+
+                <p>
+                    <strong>
+                        Ante una emergencia, busca ayuda de inmediato y
+                        contacta los servicios de emergencia de tu localidad.
+                    </strong>
+                </p>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="prevencion" class="prevention">
+
+        <h2>🌱 Hábitos para cuidar la salud</h2>
+
+        <ul>
+            <li>Mantener una alimentación variada y equilibrada.</li>
+            <li>Beber suficiente agua.</li>
+            <li>Realizar actividad física regularmente.</li>
+            <li>Dormir las horas adecuadas según la edad.</li>
+            <li>Lavarse las manos con frecuencia.</li>
+            <li>Cuidar la higiene dental.</li>
+            <li>Realizar controles de salud cuando correspondan.</li>
+            <li>Hablar con un adulto de confianza cuando exista un problema.</li>
+            <li>Buscar ayuda profesional ante problemas físicos o emocionales persistentes.</li>
+        </ul>
+
+    </section>
+
+</div>
+
+<footer>
+    <p>🩺 Salud Escolar — Proyecto educativo</p>
+    <p>Información general. No sustituye la valoración de un profesional sanitario.</p>
+</footer>
+
+
+<script>
+
+    /*
+     * Base educativa.
+     *
+     * IMPORTANTE:
+     * Esta función NO realiza diagnósticos médicos.
+     * Busca coincidencias entre lo escrito por el usuario
+     * y síntomas asociados a temas educativos.
+     */
+
+    const problemas = [
+
+        {
+            nombre: "Deshidratación",
+            palabras: [
+                "sed",
+                "boca seca",
+                "orina oscura",
+                "mareo",
+                "deshidratado"
+            ],
+            descripcion:
+                "Algunos de los síntomas escritos pueden aparecer cuando una persona no consume suficiente líquido o pierde demasiado."
+        },
+
+        {
+            nombre: "Falta de sueño",
+            palabras: [
+                "cansancio",
+                "sueño",
+                "somnolencia",
+                "no puedo dormir",
+                "insomnio",
+                "agotamiento"
+            ],
+            descripcion:
+                "El cansancio y las dificultades de concentración pueden estar relacionados con dormir poco, aunque también pueden tener otras causas."
+        },
+
+        {
+            nombre: "Estrés o ansiedad",
+            palabras: [
+                "ansiedad",
+                "nervios",
+                "nervioso",
+                "preocupación",
+                "estrés",
+                "palpitaciones",
+                "no puedo concentrarme"
+            ],
+            descripcion:
+                "El estrés y la ansiedad pueden producir síntomas físicos y emocionales. Si son persistentes o interfieren con la vida diaria, conviene buscar ayuda."
+        },
+
+        {
+            nombre: "Problemas de visión",
+            palabras: [
+                "visión borrosa",
+                "veo borroso",
+                "no veo",
+                "dolor de cabeza",
+                "dificultad para leer",
+                "entrecierro los ojos"
+            ],
+            descripcion:
+                "Las dificultades visuales pueden provocar problemas para leer, ver el tablero o dolores de cabeza."
+        },
+
+        {
+            nombre: "Problemas dentales",
+            palabras: [
+                "dolor de diente",
+                "dolor dental",
+                "caries",
+                "sangrado de encías",
+                "encías",
+                "dolor en los dientes"
+            ],
+            descripcion:
+                "Los síntomas relacionados con dientes o encías pueden requerir una valoración odontológica."
+        },
+
+        {
+            nombre: "Infección respiratoria",
+            palabras: [
+                "tos",
+                "dolor de garganta",
+                "congestión",
+                "mocos",
+                "fiebre",
+                "resfriado"
+            ],
+            descripcion:
+                "Estos síntomas pueden aparecer en diferentes infecciones respiratorias, pero también pueden tener otras causas."
+        },
+
+        {
+            nombre: "Dolor de cabeza",
+            palabras: [
+                "dolor de cabeza",
+                "me duele la cabeza",
+                "cefalea",
+                "migraña"
+            ],
+            descripcion:
+                "El dolor de cabeza puede tener múltiples causas. Si es intenso, repentino, recurrente o se acompaña de otros síntomas importantes, busca atención médica."
+        },
+
+        {
+            nombre: "Problemas de alimentación",
+            palabras: [
+                "mala alimentación",
+                "no como",
+                "como mucho",
+                "no tengo apetito",
+                "alimentación",
+                "comida"
+            ],
+            descripcion:
+                "Los hábitos alimentarios pueden influir en la energía, crecimiento y bienestar. Una evaluación profesional puede ser útil si existen preocupaciones."
+        },
+
+        {
+            nombre: "Salud emocional",
+            palabras: [
+                "triste",
+                "tristeza",
+                "depresión",
+                "no quiero hacer nada",
+                "sin ganas",
+                "aislado",
+                "soledad"
+            ],
+            descripcion:
+                "Los cambios persistentes del estado de ánimo merecen atención. Hablar con un adulto de confianza o profesional de salud mental puede ser importante."
+        },
+
+        {
+            nombre: "Higiene personal",
+            palabras: [
+                "higiene",
+                "aseo",
+                "olor",
+                "no me baño",
+                "manos sucias"
+            ],
+            descripcion:
+                "La higiene personal incluye hábitos como el lavado de manos, baño, cuidado dental y limpieza de la ropa."
+        },
+
+        {
+            nombre: "Problemas posturales",
+            palabras: [
+                "dolor de espalda",
+                "dolor de cuello",
+                "espalda",
+                "cuello",
+                "postura"
+            ],
+            descripcion:
+                "Las molestias de espalda o cuello pueden relacionarse con postura, actividad física, cargas u otras causas."
+        },
+
+        {
+            nombre: "Actividad física insuficiente",
+            palabras: [
+                "no hago ejercicio",
+                "sedentario",
+                "sedentarismo",
+                "no hago deporte",
+                "poco ejercicio"
+            ],
+            descripcion:
+                "La actividad física forma parte de un estilo de vida saludable y puede contribuir al bienestar físico y mental."
+        }
+
+    ];
+
+
+    function buscarProblema() {
+
+        const texto =
+            document.getElementById("symptomInput")
+            .value
+            .toLowerCase()
+            .trim();
+
+        const resultado =
+            document.getElementById("resultado");
+
+        if (!texto) {
+
+            resultado.style.display = "block";
+
+            resultado.innerHTML = `
+                <h3>✏️ Escribe un síntoma o problema</h3>
+                <p>
+                    Por ejemplo:
+                    <strong>"tengo dolor de cabeza y estoy muy cansado"</strong>.
+                </p>
+            `;
+
+            return;
+        }
+
+        let coincidencias = [];
+
+        problemas.forEach(problema => {
+
+            let puntos = 0;
+
+            problema.palabras.forEach(palabra => {
+
+                if (texto.includes(palabra)) {
+                    puntos++;
+                }
+
+            });
+
+            if (puntos > 0) {
+
+                coincidencias.push({
+                    problema: problema,
+                    puntos: puntos
+                });
+
+            }
+
+        });
+
+
+        coincidencias.sort((a, b) => b.puntos - a.puntos);
+
+
+        resultado.style.display = "block";
+
+
+        if (coincidencias.length === 0) {
+
+            resultado.innerHTML = `
+                <h3>🔎 No encontré una coincidencia clara</h3>
+
+                <p>
+                    La información escrita no coincide con los temas educativos
+                    incluidos en esta versión.
+                </p>
+
+                <p>
+                    Esto <strong>no significa que no exista un problema de salud</strong>.
+                    Los síntomas pueden tener muchas causas.
+                </p>
+
+                <br>
+
+                <p>
+                    Si el síntoma persiste, empeora o te preocupa,
+                    consulta con un profesional sanitario.
+                </p>
+            `;
+
+            return;
+        }
+
+
+        let html = `
+            <h3>📋 Información relacionada</h3>
+
+            <p>
+                Encontré estos temas relacionados con lo que escribiste:
+            </p>
+        `;
+
+
+        coincidencias.slice(0, 4).forEach(item => {
+
+            html += `
+                <div style="
+                    background:white;
+                    padding:15px;
+                    margin-top:12px;
+                    border-radius:8px;
+                ">
+
+                    <h4 style="color:#00796b;">
+                        ${item.problema.nombre}
+                    </h4>
+
+                    <p>
+                        ${item.problema.descripcion}
+                    </p>
+
+                </div>
+            `;
+
+        });
+
+
+        html += `
+            <br>
+
+            <p>
+                <strong>⚠️ Recuerda:</strong>
+                esto es una coincidencia educativa y
+                <strong>no es un diagnóstico médico</strong>.
+            </p>
+
+            <p>
+                Un mismo síntoma puede aparecer en diferentes condiciones.
+                Si tienes síntomas persistentes o preocupantes,
+                consulta con un profesional de salud.
+            </p>
+        `;
+
+
+        resultado.innerHTML = html;
+
+    }
+
+</script>
+
+</body>
+</html>
