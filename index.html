@@ -1,872 +1,1792 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salud Escolar - Guía Educativa</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-        body {
-            background: #f1f8f6;
-            color: #263238;
-            line-height: 1.6;
-        }
+    <meta
+        name="description"
+        content="EduHealth - Plataforma educativa para identificar síntomas y conocer posibles temas relacionados con la salud."
+    >
 
-        header {
-            background: linear-gradient(135deg, #00796b, #26a69a);
-            color: white;
-            padding: 35px 20px;
-            text-align: center;
-        }
+    <meta
+        name="theme-color"
+        content="#2563eb"
+    >
 
-        header h1 {
-            font-size: 2.3rem;
-            margin-bottom: 10px;
-        }
+    <title>EduHealth | Explorador de Síntomas</title>
 
-        header p {
-            max-width: 800px;
-            margin: auto;
-        }
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        nav {
-            background: #004d40;
-            padding: 12px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 12px;
-            font-weight: bold;
-        }
+    <!-- Iconos -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 30px auto;
-        }
-
-        .warning {
-            background: #fff3cd;
-            border-left: 6px solid #ffb300;
-            padding: 18px;
-            margin-bottom: 30px;
-            border-radius: 8px;
-        }
-
-        .search-box {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.08);
-            margin-bottom: 40px;
-        }
-
-        .search-box h2 {
-            color: #00796b;
-            margin-bottom: 10px;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 100px;
-            margin-top: 15px;
-            padding: 15px;
-            border: 2px solid #b2dfdb;
-            border-radius: 10px;
-            font-size: 16px;
-            resize: vertical;
-        }
-
-        button {
-            margin-top: 15px;
-            padding: 13px 22px;
-            border: none;
-            border-radius: 8px;
-            background: #00796b;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #004d40;
-        }
-
-        .result {
-            margin-top: 25px;
-            padding: 20px;
-            background: #e0f2f1;
-            border-radius: 10px;
-            display: none;
-        }
-
-        .result h3 {
-            color: #00695c;
-            margin-bottom: 10px;
-        }
-
-        .health-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: white;
-            padding: 22px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,.08);
-            border-top: 5px solid #26a69a;
-        }
-
-        .card h3 {
-            color: #00796b;
-            margin-bottom: 10px;
-        }
-
-        .card ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        .danger {
-            border-top-color: #e53935;
-        }
-
-        .danger h3 {
-            color: #c62828;
-        }
-
-        .prevention {
-            background: #e8f5e9;
-            padding: 25px;
-            margin-top: 40px;
-            border-radius: 15px;
-        }
-
-        .prevention li {
-            margin: 8px 0;
-            margin-left: 20px;
-        }
-
-        footer {
-            margin-top: 50px;
-            padding: 25px;
-            text-align: center;
-            background: #263238;
-            color: white;
-        }
-
-        .tag {
-            display: inline-block;
-            background: #b2dfdb;
-            color: #004d40;
-            padding: 4px 9px;
-            border-radius: 20px;
-            font-size: 13px;
-            margin: 3px;
-        }
-    </style>
+    <!-- Hoja de estilos -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <h1>🩺 Salud Escolar</h1>
-    <p>
-        Aprende sobre algunos problemas de salud que pueden afectar a niños,
-        adolescentes y jóvenes durante la etapa escolar.
-    </p>
-</header>
-
-<nav>
-    <a href="#buscador">Buscador</a>
-    <a href="#problemas">Problemas de salud</a>
-    <a href="#prevencion">Prevención</a>
-</nav>
-
-<div class="container">
-
-    <div class="warning">
-        <strong>⚠️ Importante:</strong>
-        Esta aplicación es educativa y no reemplaza un diagnóstico médico.
-        Los síntomas pueden tener diferentes causas. Si existe preocupación
-        por la salud de un estudiante, se debe hablar con un adulto responsable
-        y consultar a un profesional sanitario.
-    </div>
-
-    <section id="buscador" class="search-box">
-        <h2>🔎 ¿Qué síntoma o problema quieres investigar?</h2>
-
-        <p>
-            Escribe uno o varios síntomas. La aplicación buscará coincidencias
-            dentro de su base de información educativa.
-        </p>
-
-        <textarea
-            id="symptomInput"
-            placeholder="Ejemplo: dolor de cabeza y cansancio"
-        ></textarea>
-
-        <button onclick="buscarProblema()">
-            Buscar información
-        </button>
-
-        <div id="resultado" class="result"></div>
-    </section>
-
-    <section id="problemas">
-        <h2>📚 Problemas de salud frecuentes en el entorno escolar</h2>
-
-        <br>
-
-        <div class="health-grid">
-
-            <article class="card">
-                <h3>🥗 Mala alimentación</h3>
-
-                <p>
-                    Una alimentación poco equilibrada puede afectar la energía,
-                    concentración y crecimiento.
-                </p>
-
-                <span class="tag">Nutrición</span>
-                <span class="tag">Alimentación</span>
-
-                <ul>
-                    <li>Saltarse comidas.</li>
-                    <li>Consumir pocos alimentos nutritivos.</li>
-                    <li>Exceso de alimentos ultraprocesados.</li>
-                    <li>Bajo consumo de frutas y verduras.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>⚖️ Sobrepeso y obesidad</h3>
-
-                <p>
-                    Son condiciones relacionadas con un exceso de grasa corporal.
-                    Su evaluación debe considerar edad, crecimiento y otros
-                    factores, especialmente en niños y adolescentes.
-                </p>
-
-                <ul>
-                    <li>Alimentación desequilibrada.</li>
-                    <li>Actividad física insuficiente.</li>
-                    <li>Factores familiares y ambientales.</li>
-                    <li>Factores metabólicos y sociales.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>🧠 Depresión y bajo estado de ánimo</h3>
-
-                <p>
-                    Los cambios persistentes en el estado de ánimo pueden afectar
-                    la vida escolar, familiar y social.
-                </p>
-
-                <ul>
-                    <li>Tristeza persistente.</li>
-                    <li>Pérdida de interés en actividades.</li>
-                    <li>Cambios en el sueño.</li>
-                    <li>Cambios en el apetito.</li>
-                    <li>Cansancio o falta de energía.</li>
-                    <li>Dificultades para concentrarse.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>😰 Ansiedad y estrés</h3>
-
-                <p>
-                    El estrés puede aparecer por exámenes, problemas familiares,
-                    presión social, cambios importantes u otras situaciones.
-                </p>
-
-                <ul>
-                    <li>Preocupación excesiva.</li>
-                    <li>Nerviosismo.</li>
-                    <li>Dificultad para dormir.</li>
-                    <li>Dolor de cabeza.</li>
-                    <li>Dolor de estómago.</li>
-                    <li>Dificultad para concentrarse.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>🧼 Higiene personal</h3>
-
-                <p>
-                    Una higiene adecuada ayuda a reducir determinados riesgos
-                    de infecciones y problemas de salud.
-                </p>
-
-                <ul>
-                    <li>Lavado frecuente de manos.</li>
-                    <li>Baño regular.</li>
-                    <li>Higiene dental.</li>
-                    <li>Ropa limpia.</li>
-                    <li>Cuidado de uñas.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>🦷 Salud dental</h3>
-
-                <p>
-                    Las caries y otros problemas bucales pueden afectar la
-                    alimentación, el sueño y la calidad de vida.
-                </p>
-
-                <ul>
-                    <li>Dolor dental.</li>
-                    <li>Sensibilidad.</li>
-                    <li>Sangrado de encías.</li>
-                    <li>Mal aliento persistente.</li>
-                    <li>Manchas o agujeros en los dientes.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>😴 Falta de sueño</h3>
-
-                <p>
-                    Dormir adecuadamente es importante para el aprendizaje,
-                    memoria, estado de ánimo y funcionamiento diario.
-                </p>
-
-                <ul>
-                    <li>Cansancio durante el día.</li>
-                    <li>Dificultad para concentrarse.</li>
-                    <li>Irritabilidad.</li>
-                    <li>Dificultad para despertarse.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>🤧 Infecciones respiratorias</h3>
-
-                <p>
-                    Los ambientes escolares facilitan el contacto cercano entre
-                    muchas personas, por lo que pueden circular infecciones
-                    respiratorias.
-                </p>
-
-                <ul>
-                    <li>Tos.</li>
-                    <li>Dolor de garganta.</li>
-                    <li>Congestión nasal.</li>
-                    <li>Fiebre.</li>
-                    <li>Malestar general.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>👀 Problemas de visión</h3>
-
-                <p>
-                    Algunos problemas visuales pueden dificultar la lectura,
-                    escritura y participación en clase.
-                </p>
-
-                <ul>
-                    <li>Visión borrosa.</li>
-                    <li>Dolor de cabeza frecuente.</li>
-                    <li>Dificultad para leer de lejos.</li>
-                    <li>Entrecerrar los ojos para ver.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>🦴 Problemas posturales</h3>
-
-                <p>
-                    Mantener determinadas posiciones durante mucho tiempo puede
-                    generar molestias musculares.
-                </p>
-
-                <ul>
-                    <li>Dolor de espalda.</li>
-                    <li>Dolor de cuello.</li>
-                    <li>Tensión muscular.</li>
-                    <li>Mala postura al estudiar.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>🤕 Dolores de cabeza</h3>
-
-                <p>
-                    El dolor de cabeza puede tener muchas causas, como falta de
-                    sueño, estrés, deshidratación, problemas visuales o
-                    diferentes enfermedades.
-                </p>
-
-                <ul>
-                    <li>Dolor en la cabeza.</li>
-                    <li>Sensibilidad a la luz.</li>
-                    <li>Náuseas en algunos casos.</li>
-                    <li>Cansancio.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>💧 Deshidratación</h3>
-
-                <p>
-                    Puede ocurrir cuando el organismo pierde más líquidos de los
-                    que recibe.
-                </p>
-
-                <ul>
-                    <li>Sed.</li>
-                    <li>Boca seca.</li>
-                    <li>Cansancio.</li>
-                    <li>Orina más oscura.</li>
-                    <li>Mareo.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>🏃 Falta de actividad física</h3>
-
-                <p>
-                    Mantenerse físicamente activo es importante para la salud
-                    física y mental.
-                </p>
-
-                <ul>
-                    <li>Muchas horas sentado.</li>
-                    <li>Poco movimiento durante el día.</li>
-                    <li>Escasa participación en actividades físicas.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>🧴 Problemas de piel</h3>
-
-                <p>
-                    Durante la adolescencia pueden aparecer diferentes
-                    alteraciones de la piel, incluyendo acné.
-                </p>
-
-                <ul>
-                    <li>Acné.</li>
-                    <li>Enrojecimiento.</li>
-                    <li>Picazón.</li>
-                    <li>Sequedad.</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>🤝 Bullying y salud mental</h3>
-
-                <p>
-                    El acoso escolar puede afectar el bienestar emocional,
-                    social y académico de una persona.
-                </p>
-
-                <ul>
-                    <li>Miedo a asistir a clase.</li>
-                    <li>Aislamiento.</li>
-                    <li>Tristeza.</li>
-                    <li>Ansiedad.</li>
-                    <li>Cambios en el rendimiento escolar.</li>
-                </ul>
-            </article>
-
-            <article class="card danger">
-                <h3>🚨 Señales de alarma</h3>
-
-                <p>
-                    Algunos síntomas requieren atención profesional rápida.
-                </p>
-
-                <ul>
-                    <li>Dificultad importante para respirar.</li>
-                    <li>Pérdida de conocimiento.</li>
-                    <li>Convulsiones.</li>
-                    <li>Dolor intenso o repentino.</li>
-                    <li>Confusión importante.</li>
-                    <li>Lesiones graves.</li>
-                    <li>Pensamientos de hacerse daño o suicidio.</li>
-                </ul>
-
-                <p>
-                    <strong>
-                        Ante una emergencia, busca ayuda de inmediato y
-                        contacta los servicios de emergencia de tu localidad.
-                    </strong>
-                </p>
-            </article>
-
-        </div>
-    </section>
-
-    <section id="prevencion" class="prevention">
-
-        <h2>🌱 Hábitos para cuidar la salud</h2>
-
-        <ul>
-            <li>Mantener una alimentación variada y equilibrada.</li>
-            <li>Beber suficiente agua.</li>
-            <li>Realizar actividad física regularmente.</li>
-            <li>Dormir las horas adecuadas según la edad.</li>
-            <li>Lavarse las manos con frecuencia.</li>
-            <li>Cuidar la higiene dental.</li>
-            <li>Realizar controles de salud cuando correspondan.</li>
-            <li>Hablar con un adulto de confianza cuando exista un problema.</li>
-            <li>Buscar ayuda profesional ante problemas físicos o emocionales persistentes.</li>
-        </ul>
-
-    </section>
-
-</div>
-
-<footer>
-    <p>🩺 Salud Escolar — Proyecto educativo</p>
-    <p>Información general. No sustituye la valoración de un profesional sanitario.</p>
-</footer>
-
-
-<script>
-
-    /*
-     * Base educativa.
-     *
-     * IMPORTANTE:
-     * Esta función NO realiza diagnósticos médicos.
-     * Busca coincidencias entre lo escrito por el usuario
-     * y síntomas asociados a temas educativos.
-     */
-
-    const problemas = [
-
-        {
-            nombre: "Deshidratación",
-            palabras: [
-                "sed",
-                "boca seca",
-                "orina oscura",
-                "mareo",
-                "deshidratado"
-            ],
-            descripcion:
-                "Algunos de los síntomas escritos pueden aparecer cuando una persona no consume suficiente líquido o pierde demasiado."
-        },
-
-        {
-            nombre: "Falta de sueño",
-            palabras: [
-                "cansancio",
-                "sueño",
-                "somnolencia",
-                "no puedo dormir",
-                "insomnio",
-                "agotamiento"
-            ],
-            descripcion:
-                "El cansancio y las dificultades de concentración pueden estar relacionados con dormir poco, aunque también pueden tener otras causas."
-        },
-
-        {
-            nombre: "Estrés o ansiedad",
-            palabras: [
-                "ansiedad",
-                "nervios",
-                "nervioso",
-                "preocupación",
-                "estrés",
-                "palpitaciones",
-                "no puedo concentrarme"
-            ],
-            descripcion:
-                "El estrés y la ansiedad pueden producir síntomas físicos y emocionales. Si son persistentes o interfieren con la vida diaria, conviene buscar ayuda."
-        },
-
-        {
-            nombre: "Problemas de visión",
-            palabras: [
-                "visión borrosa",
-                "veo borroso",
-                "no veo",
-                "dolor de cabeza",
-                "dificultad para leer",
-                "entrecierro los ojos"
-            ],
-            descripcion:
-                "Las dificultades visuales pueden provocar problemas para leer, ver el tablero o dolores de cabeza."
-        },
-
-        {
-            nombre: "Problemas dentales",
-            palabras: [
-                "dolor de diente",
-                "dolor dental",
-                "caries",
-                "sangrado de encías",
-                "encías",
-                "dolor en los dientes"
-            ],
-            descripcion:
-                "Los síntomas relacionados con dientes o encías pueden requerir una valoración odontológica."
-        },
-
-        {
-            nombre: "Infección respiratoria",
-            palabras: [
-                "tos",
-                "dolor de garganta",
-                "congestión",
-                "mocos",
-                "fiebre",
-                "resfriado"
-            ],
-            descripcion:
-                "Estos síntomas pueden aparecer en diferentes infecciones respiratorias, pero también pueden tener otras causas."
-        },
-
-        {
-            nombre: "Dolor de cabeza",
-            palabras: [
-                "dolor de cabeza",
-                "me duele la cabeza",
-                "cefalea",
-                "migraña"
-            ],
-            descripcion:
-                "El dolor de cabeza puede tener múltiples causas. Si es intenso, repentino, recurrente o se acompaña de otros síntomas importantes, busca atención médica."
-        },
-
-        {
-            nombre: "Problemas de alimentación",
-            palabras: [
-                "mala alimentación",
-                "no como",
-                "como mucho",
-                "no tengo apetito",
-                "alimentación",
-                "comida"
-            ],
-            descripcion:
-                "Los hábitos alimentarios pueden influir en la energía, crecimiento y bienestar. Una evaluación profesional puede ser útil si existen preocupaciones."
-        },
-
-        {
-            nombre: "Salud emocional",
-            palabras: [
-                "triste",
-                "tristeza",
-                "depresión",
-                "no quiero hacer nada",
-                "sin ganas",
-                "aislado",
-                "soledad"
-            ],
-            descripcion:
-                "Los cambios persistentes del estado de ánimo merecen atención. Hablar con un adulto de confianza o profesional de salud mental puede ser importante."
-        },
-
-        {
-            nombre: "Higiene personal",
-            palabras: [
-                "higiene",
-                "aseo",
-                "olor",
-                "no me baño",
-                "manos sucias"
-            ],
-            descripcion:
-                "La higiene personal incluye hábitos como el lavado de manos, baño, cuidado dental y limpieza de la ropa."
-        },
-
-        {
-            nombre: "Problemas posturales",
-            palabras: [
-                "dolor de espalda",
-                "dolor de cuello",
-                "espalda",
-                "cuello",
-                "postura"
-            ],
-            descripcion:
-                "Las molestias de espalda o cuello pueden relacionarse con postura, actividad física, cargas u otras causas."
-        },
-
-        {
-            nombre: "Actividad física insuficiente",
-            palabras: [
-                "no hago ejercicio",
-                "sedentario",
-                "sedentarismo",
-                "no hago deporte",
-                "poco ejercicio"
-            ],
-            descripcion:
-                "La actividad física forma parte de un estilo de vida saludable y puede contribuir al bienestar físico y mental."
-        }
-
-    ];
-
-
-    function buscarProblema() {
-
-        const texto =
-            document.getElementById("symptomInput")
-            .value
-            .toLowerCase()
-            .trim();
-
-        const resultado =
-            document.getElementById("resultado");
-
-        if (!texto) {
-
-            resultado.style.display = "block";
-
-            resultado.innerHTML = `
-                <h3>✏️ Escribe un síntoma o problema</h3>
-                <p>
-                    Por ejemplo:
-                    <strong>"tengo dolor de cabeza y estoy muy cansado"</strong>.
-                </p>
-            `;
-
-            return;
-        }
-
-        let coincidencias = [];
-
-        problemas.forEach(problema => {
-
-            let puntos = 0;
-
-            problema.palabras.forEach(palabra => {
-
-                if (texto.includes(palabra)) {
-                    puntos++;
-                }
-
-            });
-
-            if (puntos > 0) {
-
-                coincidencias.push({
-                    problema: problema,
-                    puntos: puntos
-                });
-
-            }
-
-        });
-
-
-        coincidencias.sort((a, b) => b.puntos - a.puntos);
-
-
-        resultado.style.display = "block";
-
-
-        if (coincidencias.length === 0) {
-
-            resultado.innerHTML = `
-                <h3>🔎 No encontré una coincidencia clara</h3>
-
-                <p>
-                    La información escrita no coincide con los temas educativos
-                    incluidos en esta versión.
-                </p>
-
-                <p>
-                    Esto <strong>no significa que no exista un problema de salud</strong>.
-                    Los síntomas pueden tener muchas causas.
-                </p>
-
-                <br>
-
-                <p>
-                    Si el síntoma persiste, empeora o te preocupa,
-                    consulta con un profesional sanitario.
-                </p>
-            `;
-
-            return;
-        }
-
-
-        let html = `
-            <h3>📋 Información relacionada</h3>
+    <!-- =====================================================
+         LOADER
+    ====================================================== -->
+
+    <div
+        id="appLoader"
+        class="app-loader"
+        aria-hidden="true"
+    >
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+
+            <h2>EduHealth</h2>
 
             <p>
-                Encontré estos temas relacionados con lo que escribiste:
+                Preparando tu espacio de orientación...
             </p>
-        `;
+        </div>
+    </div>
 
 
-        coincidencias.slice(0, 4).forEach(item => {
+    <!-- =====================================================
+         HEADER / NAVBAR
+    ====================================================== -->
 
-            html += `
-                <div style="
-                    background:white;
-                    padding:15px;
-                    margin-top:12px;
-                    border-radius:8px;
-                ">
+    <header class="main-header">
 
-                    <h4 style="color:#00796b;">
-                        ${item.problema.nombre}
-                    </h4>
+        <div class="header-container">
+
+            <!-- LOGO -->
+
+            <a
+                href="#inicio"
+                class="brand"
+                aria-label="EduHealth inicio"
+            >
+
+                <div class="brand-icon">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+
+                <div class="brand-text">
+                    <span class="brand-name">
+                        EduHealth
+                    </span>
+
+                    <span class="brand-subtitle">
+                        Educación en salud
+                    </span>
+                </div>
+
+            </a>
+
+
+            <!-- NAVIGATION -->
+
+            <nav
+                class="main-navigation"
+                id="mainNavigation"
+                aria-label="Navegación principal"
+            >
+
+                <a
+                    href="#inicio"
+                    class="nav-link active"
+                >
+                    <i class="fa-solid fa-house"></i>
+                    <span>Inicio</span>
+                </a>
+
+                <a
+                    href="#explorador"
+                    class="nav-link"
+                >
+                    <i class="fa-solid fa-stethoscope"></i>
+                    <span>Explorar síntomas</span>
+                </a>
+
+                <a
+                    href="#como-funciona"
+                    class="nav-link"
+                >
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Cómo funciona</span>
+                </a>
+
+                <a
+                    href="#importante"
+                    class="nav-link"
+                >
+                    <i class="fa-solid fa-shield-heart"></i>
+                    <span>Información importante</span>
+                </a>
+
+            </nav>
+
+
+            <!-- HEADER ACTIONS -->
+
+            <div class="header-actions">
+
+                <button
+                    type="button"
+                    class="header-icon-button"
+                    id="themeToggle"
+                    aria-label="Cambiar apariencia"
+                    title="Cambiar apariencia"
+                >
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    aria-label="Abrir menú"
+                    aria-expanded="false"
+                >
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section
+            id="inicio"
+            class="hero-section"
+        >
+
+            <div class="hero-background-shape shape-one"></div>
+            <div class="hero-background-shape shape-two"></div>
+
+            <div class="container hero-container">
+
+                <div class="hero-content">
+
+                    <div class="hero-badge">
+                        <span class="badge-dot"></span>
+
+                        Herramienta educativa de salud
+                    </div>
+
+
+                    <h1 class="hero-title">
+
+                        Comprende tus
+                        <span class="gradient-text">
+                            síntomas
+                        </span>
+                        de forma sencilla
+
+                    </h1>
+
+
+                    <p class="hero-description">
+
+                        Describe los síntomas que estás experimentando
+                        y recibe información educativa sobre posibles
+                        temas relacionados, sus características y cuándo
+                        puede ser importante consultar a un profesional.
+
+                    </p>
+
+
+                    <div class="hero-actions">
+
+                        <a
+                            href="#explorador"
+                            class="primary-button"
+                        >
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                            Explorar síntomas
+
+                        </a>
+
+
+                        <a
+                            href="#como-funciona"
+                            class="secondary-button"
+                        >
+                            <i class="fa-solid fa-circle-play"></i>
+
+                            ¿Cómo funciona?
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- TRUST ITEMS -->
+
+                    <div class="hero-trust">
+
+                        <div class="trust-item">
+
+                            <div class="trust-icon">
+                                <i class="fa-solid fa-book-medical"></i>
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Educativo
+                                </strong>
+
+                                <span>
+                                    Información clara
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="trust-item">
+
+                            <div class="trust-icon">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Privado
+                                </strong>
+
+                                <span>
+                                    Sin datos personales
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="trust-item">
+
+                            <div class="trust-icon">
+                                <i class="fa-solid fa-user-doctor"></i>
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Orientativo
+                                </strong>
+
+                                <span>
+                                    No sustituye al médico
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- HERO VISUAL -->
+
+                <div class="hero-visual">
+
+                    <div class="health-card main-health-card">
+
+                        <div class="health-card-header">
+
+                            <div class="health-card-icon">
+                                <i class="fa-solid fa-heart-pulse"></i>
+                            </div>
+
+                            <div>
+
+                                <span class="small-label">
+                                    Exploración
+                                </span>
+
+                                <strong>
+                                    Estado general
+                                </strong>
+
+                            </div>
+
+                            <div class="status-indicator">
+                                <span></span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="health-wave">
+
+                            <svg
+                                viewBox="0 0 500 150"
+                                preserveAspectRatio="none"
+                                aria-hidden="true"
+                            >
+
+                                <path
+                                    d="M0,85
+                                       C25,85 25,85 45,85
+                                       C60,85 65,40 75,40
+                                       C85,40 90,115 100,115
+                                       C110,115 115,85 130,85
+                                       C150,85 155,85 175,85
+                                       C190,85 195,30 205,30
+                                       C215,30 220,120 230,120
+                                       C240,120 245,85 260,85
+                                       C280,85 290,85 310,85
+                                       C325,85 330,50 340,50
+                                       C350,50 355,105 365,105
+                                       C375,105 380,85 400,85
+                                       C420,85 430,85 450,85
+                                       C465,85 470,60 480,60
+                                       C490,60 495,85 500,85"
+                                ></path>
+
+                            </svg>
+
+                        </div>
+
+
+                        <div class="health-card-stats">
+
+                            <div>
+                                <span>
+                                    Síntomas
+                                </span>
+
+                                <strong id="heroSymptomCount">
+                                    0
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>
+                                    Categorías
+                                </span>
+
+                                <strong>
+                                    10+
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>
+                                    Orientación
+                                </span>
+
+                                <strong>
+                                    24/7
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FLOATING CARD -->
+
+                    <div class="floating-card floating-card-one">
+
+                        <div class="floating-icon">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+
+                        <div>
+                            <strong>
+                                Análisis completado
+                            </strong>
+
+                            <span>
+                                Información encontrada
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="floating-card floating-card-two">
+
+                        <div class="floating-icon">
+                            <i class="fa-solid fa-shield-heart"></i>
+                        </div>
+
+                        <div>
+                            <strong>
+                                Enfoque educativo
+                            </strong>
+
+                            <span>
+                                Información orientativa
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             EXPLORADOR
+        ================================================== -->
+
+        <section
+            id="explorador"
+            class="explorer-section"
+        >
+
+            <div class="container">
+
+                <!-- SECTION HEADER -->
+
+                <div class="section-header">
+
+                    <span class="section-eyebrow">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Explorador
+                    </span>
+
+                    <h2>
+                        ¿Qué síntomas estás experimentando?
+                    </h2>
 
                     <p>
-                        ${item.problema.descripcion}
+                        Escribe o selecciona los síntomas que deseas
+                        analizar. Puedes incluir varios para obtener
+                        una orientación más completa.
                     </p>
 
                 </div>
-            `;
-
-        });
 
 
-        html += `
-            <br>
+                <!-- EXPLORER CARD -->
 
-            <p>
-                <strong>⚠️ Recuerda:</strong>
-                esto es una coincidencia educativa y
-                <strong>no es un diagnóstico médico</strong>.
-            </p>
+                <div class="explorer-card">
 
-            <p>
-                Un mismo síntoma puede aparecer en diferentes condiciones.
-                Si tienes síntomas persistentes o preocupantes,
-                consulta con un profesional de salud.
-            </p>
-        `;
+                    <!-- PROGRESS -->
+
+                    <div class="explorer-progress">
+
+                        <div class="progress-step active">
+
+                            <span class="progress-number">
+                                1
+                            </span>
+
+                            <span>
+                                Síntomas
+                            </span>
+
+                        </div>
 
 
-        resultado.innerHTML = html;
+                        <div class="progress-line"></div>
 
-    }
 
-</script>
+                        <div class="progress-step">
+
+                            <span class="progress-number">
+                                2
+                            </span>
+
+                            <span>
+                                Análisis
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress-line"></div>
+
+
+                        <div class="progress-step">
+
+                            <span class="progress-number">
+                                3
+                            </span>
+
+                            <span>
+                                Resultados
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SEARCH -->
+
+                    <div class="symptom-search-area">
+
+                        <label
+                            for="symptomInput"
+                            class="input-label"
+                        >
+                            Describe tus síntomas
+                        </label>
+
+
+                        <div class="search-input-wrapper">
+
+                            <i class="fa-solid fa-magnifying-glass search-input-icon"></i>
+
+                            <input
+                                type="text"
+                                id="symptomInput"
+                                name="symptomInput"
+                                placeholder="Ejemplo: tengo tos, fiebre y dolor de garganta..."
+                                autocomplete="off"
+                                aria-label="Escribe tus síntomas"
+                            >
+
+                            <button
+                                type="button"
+                                id="clearSearch"
+                                class="clear-input-button"
+                                aria-label="Limpiar búsqueda"
+                                title="Limpiar"
+                            >
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+
+                        </div>
+
+
+                        <!-- SUGGESTIONS -->
+
+                        <div
+                            id="symptomSuggestions"
+                            class="symptom-suggestions"
+                            role="listbox"
+                            aria-label="Sugerencias de síntomas"
+                        ></div>
+
+
+                        <p class="input-help">
+                            <i class="fa-solid fa-circle-info"></i>
+
+                            Puedes escribir varios síntomas separados
+                            por comas o frases completas.
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- SELECTED SYMPTOMS -->
+
+                    <div class="selected-symptoms-section">
+
+                        <div class="selected-header">
+
+                            <div>
+
+                                <h3>
+                                    Síntomas seleccionados
+                                </h3>
+
+                                <span
+                                    id="selectedSymptomsCount"
+                                    class="selected-count"
+                                >
+                                    0
+                                </span>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                id="clearSymptoms"
+                                class="text-button"
+                            >
+                                <i class="fa-solid fa-trash-can"></i>
+
+                                Limpiar todo
+
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            id="selectedSymptoms"
+                            class="selected-symptoms"
+                        >
+
+                            <div
+                                id="emptySymptomsMessage"
+                                class="empty-symptoms"
+                            >
+
+                                <div class="empty-icon">
+                                    <i class="fa-solid fa-notes-medical"></i>
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Aún no has seleccionado síntomas
+                                    </strong>
+
+                                    <p>
+                                        Comienza escribiendo en el buscador
+                                        o selecciona una sugerencia.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- COMMON SYMPTOMS -->
+
+                    <div class="common-symptoms-section">
+
+                        <div class="common-header">
+
+                            <h3>
+                                Síntomas frecuentes
+                            </h3>
+
+                            <span>
+                                Selecciona los que correspondan
+                            </span>
+
+                        </div>
+
+
+                        <div class="symptom-chips">
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="dolor de cabeza"
+                            >
+                                <i class="fa-solid fa-head-side-virus"></i>
+                                Dolor de cabeza
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="fiebre"
+                            >
+                                <i class="fa-solid fa-temperature-half"></i>
+                                Fiebre
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="tos"
+                            >
+                                <i class="fa-solid fa-lungs"></i>
+                                Tos
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="dolor de garganta"
+                            >
+                                <i class="fa-solid fa-comment-medical"></i>
+                                Dolor de garganta
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="congestion nasal"
+                            >
+                                <i class="fa-solid fa-wind"></i>
+                                Congestión nasal
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="cansancio"
+                            >
+                                <i class="fa-solid fa-battery-quarter"></i>
+                                Cansancio
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="dolor muscular"
+                            >
+                                <i class="fa-solid fa-person-running"></i>
+                                Dolor muscular
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="nauseas"
+                            >
+                                <i class="fa-solid fa-face-dizzy"></i>
+                                Náuseas
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="mareo"
+                            >
+                                <i class="fa-solid fa-arrows-to-circle"></i>
+                                Mareo
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="dolor abdominal"
+                            >
+                                <i class="fa-solid fa-stomach"></i>
+                                Dolor abdominal
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="dificultad para dormir"
+                            >
+                                <i class="fa-solid fa-bed"></i>
+                                Dificultad para dormir
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="symptom-chip"
+                                data-symptom="estres"
+                            >
+                                <i class="fa-solid fa-brain"></i>
+                                Estrés
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ANALYZE -->
+
+                    <div class="analyze-section">
+
+                        <button
+                            type="button"
+                            id="analyzeButton"
+                            class="analyze-button"
+                            disabled
+                        >
+
+                            <span class="button-icon">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </span>
+
+                            <span class="button-text">
+                                Analizar síntomas
+                            </span>
+
+                            <span class="button-arrow">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </span>
+
+                        </button>
+
+
+                        <p class="analyze-disclaimer">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                            Esta herramienta proporciona información
+                            educativa y no realiza diagnósticos médicos.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LOADING ANALYSIS
+        ================================================== -->
+
+        <section
+            id="analysisLoading"
+            class="analysis-loading-section hidden"
+            aria-live="polite"
+        >
+
+            <div class="container">
+
+                <div class="loading-card">
+
+                    <div class="analysis-animation">
+
+                        <div class="analysis-ring ring-one"></div>
+                        <div class="analysis-ring ring-two"></div>
+
+                        <div class="analysis-center">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+
+                    </div>
+
+
+                    <h2>
+                        Analizando tus síntomas...
+                    </h2>
+
+                    <p id="loadingMessage">
+                        Estamos relacionando los síntomas seleccionados
+                        con diferentes categorías.
+                    </p>
+
+
+                    <div class="analysis-progress">
+
+                        <div
+                            id="analysisProgressBar"
+                            class="analysis-progress-bar"
+                        ></div>
+
+                    </div>
+
+
+                    <span id="analysisProgressText">
+                        Analizando...
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             RESULTS
+        ================================================== -->
+
+        <section
+            id="results"
+            class="results-section hidden"
+            aria-live="polite"
+        >
+
+            <div class="container">
+
+                <!-- RESULTS HEADER -->
+
+                <div class="results-header">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            <i class="fa-solid fa-chart-simple"></i>
+                            Análisis
+                        </span>
+
+                        <h2>
+                            Información relacionada
+                        </h2>
+
+                        <p>
+                            Estos resultados se basan en la relación entre
+                            los síntomas que seleccionaste y la información
+                            disponible en nuestra base educativa.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="newAnalysisButton"
+                        class="secondary-button"
+                    >
+
+                        <i class="fa-solid fa-rotate"></i>
+
+                        Nuevo análisis
+
+                    </button>
+
+                </div>
+
+
+                <!-- RESULT SUMMARY -->
+
+                <div class="result-summary-card">
+
+                    <div class="summary-icon">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                    </div>
+
+
+                    <div class="summary-content">
+
+                        <span class="summary-label">
+                            Síntomas analizados
+                        </span>
+
+                        <div
+                            id="resultSymptoms"
+                            class="result-symptoms-list"
+                        >
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-status">
+
+                        <span>
+                            Estado
+                        </span>
+
+                        <strong id="resultStatus">
+                            Analizado
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RESULTS GRID -->
+
+                <div
+                    id="resultsContainer"
+                    class="results-grid"
+                >
+
+                    <!--
+                        Los resultados serán generados
+                        dinámicamente por JavaScript.
+                    -->
+
+                </div>
+
+
+                <!-- NO RESULTS -->
+
+                <div
+                    id="noResults"
+                    class="no-results hidden"
+                >
+
+                    <div class="no-results-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+
+                    <h3>
+                        No encontramos una relación clara
+                    </h3>
+
+                    <p>
+                        Los síntomas introducidos no coinciden de forma
+                        suficiente con la información disponible.
+                        Intenta agregar más detalles o revisar la forma
+                        en que escribiste los síntomas.
+                    </p>
+
+                    <button
+                        type="button"
+                        id="tryAgainButton"
+                        class="primary-button"
+                    >
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Modificar síntomas
+                    </button>
+
+                </div>
+
+
+                <!-- =================================================
+                     IMPORTANT WARNING
+                ================================================== -->
+
+                <div
+                    id="warningPanel"
+                    class="warning-panel hidden"
+                >
+
+                    <div class="warning-icon">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+
+                    <div class="warning-content">
+
+                        <span class="warning-label">
+                            Atención
+                        </span>
+
+                        <h3>
+                            Señales que requieren especial atención
+                        </h3>
+
+                        <p>
+                            Si presentas alguno de los siguientes síntomas
+                            de forma intensa, repentina o que empeora,
+                            busca atención médica profesional.
+                        </p>
+
+                        <ul id="warningList">
+                            <!-- JavaScript -->
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DISCLAIMER -->
+
+                <div class="results-disclaimer">
+
+                    <div class="disclaimer-icon">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Importante
+                        </strong>
+
+                        <p>
+                            Los resultados son únicamente orientativos
+                            y educativos. La presencia de determinados
+                            síntomas no significa que tengas una
+                            enfermedad específica. Muchas condiciones
+                            pueden compartir síntomas similares.
+                        </p>
+
+                        <p>
+                            Para obtener una evaluación adecuada,
+                            especialmente si los síntomas son intensos,
+                            persistentes o empeoran, consulta a un
+                            profesional de la salud.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             HOW IT WORKS
+        ================================================== -->
+
+        <section
+            id="como-funciona"
+            class="how-section"
+        >
+
+            <div class="container">
+
+                <div class="section-header">
+
+                    <span class="section-eyebrow">
+                        <i class="fa-solid fa-route"></i>
+                        Proceso
+                    </span>
+
+                    <h2>
+                        ¿Cómo funciona EduHealth?
+                    </h2>
+
+                    <p>
+                        Una forma sencilla de organizar información
+                        sobre tus síntomas.
+                    </p>
+
+                </div>
+
+
+                <div class="steps-grid">
+
+
+                    <!-- STEP 1 -->
+
+                    <article class="step-card">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <div class="step-icon">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </div>
+
+                        <h3>
+                            Describe
+                        </h3>
+
+                        <p>
+                            Escribe los síntomas que estás experimentando
+                            utilizando palabras o frases sencillas.
+                        </p>
+
+                    </article>
+
+
+                    <!-- STEP 2 -->
+
+                    <article class="step-card">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <div class="step-icon">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+
+                        <h3>
+                            Organizamos
+                        </h3>
+
+                        <p>
+                            Los síntomas se identifican y relacionan
+                            con diferentes categorías de información.
+                        </p>
+
+                    </article>
+
+
+                    <!-- STEP 3 -->
+
+                    <article class="step-card">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <div class="step-icon">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+
+                        <h3>
+                            Comparamos
+                        </h3>
+
+                        <p>
+                            Se analiza la combinación de síntomas,
+                            no solamente cada síntoma de manera aislada.
+                        </p>
+
+                    </article>
+
+
+                    <!-- STEP 4 -->
+
+                    <article class="step-card">
+
+                        <div class="step-number">
+                            04
+                        </div>
+
+                        <div class="step-icon">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+
+                        <h3>
+                            Aprendes
+                        </h3>
+
+                        <p>
+                            Obtienes información educativa para comprender
+                            mejor las posibles relaciones entre síntomas.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FEATURES
+        ================================================== -->
+
+        <section class="features-section">
+
+            <div class="container">
+
+                <div class="features-layout">
+
+
+                    <div class="features-content">
+
+                        <span class="section-eyebrow">
+                            <i class="fa-solid fa-sparkles"></i>
+                            Diseñado para aprender
+                        </span>
+
+                        <h2>
+                            No solo muestra resultados.
+                            <span>
+                                Te ayuda a entenderlos.
+                            </span>
+                        </h2>
+
+                        <p>
+                            EduHealth está diseñado para presentar la
+                            información de manera comprensible y evitar
+                            conclusiones basadas únicamente en una
+                            coincidencia aislada.
+                        </p>
+
+
+                        <div class="feature-list">
+
+                            <div class="feature-item">
+
+                                <div class="feature-check">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Relación entre síntomas
+                                    </strong>
+
+                                    <span>
+                                        Analizamos la combinación de
+                                        síntomas seleccionados.
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="feature-item">
+
+                                <div class="feature-check">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Explicaciones comprensibles
+                                    </strong>
+
+                                    <span>
+                                        Cada resultado puede explicar
+                                        qué síntomas coincidieron.
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="feature-item">
+
+                                <div class="feature-check">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Señales de atención
+                                    </strong>
+
+                                    <span>
+                                        Se destacan situaciones que
+                                        pueden requerir atención médica.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="feature-item">
+
+                                <div class="feature-check">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Información educativa
+                                    </strong>
+
+                                    <span>
+                                        Los resultados están pensados
+                                        para aprender, no para autodiagnosticarse.
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURE VISUAL -->
+
+                    <div class="features-visual">
+
+                        <div class="information-card">
+
+                            <div class="information-card-top">
+
+                                <div class="information-icon">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+
+                                <div>
+
+                                    <span>
+                                        Relación encontrada
+                                    </span>
+
+                                    <strong>
+                                        Alta coincidencia
+                                    </strong>
+
+                                </div>
+
+                                <span class="relation-badge">
+                                    84%
+                                </span>
+
+                            </div>
+
+
+                            <div class="relation-bar">
+
+                                <div
+                                    class="relation-bar-fill"
+                                    style="width:84%"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="matched-symptoms">
+
+                                <span>
+                                    Síntomas relacionados
+                                </span>
+
+                                <div>
+
+                                    <span class="mini-tag">
+                                        Tos
+                                    </span>
+
+                                    <span class="mini-tag">
+                                        Fiebre
+                                    </span>
+
+                                    <span class="mini-tag">
+                                        Congestión
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="information-divider"></div>
+
+
+                            <div class="educational-message">
+
+                                <i class="fa-solid fa-lightbulb"></i>
+
+                                <p>
+                                    La coincidencia entre varios síntomas
+                                    puede aportar más información que una
+                                    coincidencia aislada.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             IMPORTANT INFORMATION
+        ================================================== -->
+
+        <section
+            id="importante"
+            class="important-section"
+        >
+
+            <div class="container">
+
+                <div class="important-card">
+
+                    <div class="important-icon">
+                        <i class="fa-solid fa-shield-heart"></i>
+                    </div>
+
+
+                    <div class="important-content">
+
+                        <span class="section-eyebrow">
+                            Información importante
+                        </span>
+
+                        <h2>
+                            Tu salud requiere contexto profesional
+                        </h2>
+
+                        <p>
+                            EduHealth es una herramienta educativa.
+                            No puede realizar un diagnóstico, determinar
+                            la causa exacta de un síntoma ni reemplazar
+                            una consulta médica.
+                        </p>
+
+                        <p>
+                            Si tus síntomas son intensos, aparecen
+                            repentinamente, persisten, empeoran o te
+                            generan preocupación, busca orientación
+                            de un profesional de la salud.
+                        </p>
+
+
+                        <div class="important-points">
+
+                            <div>
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                <span>
+                                    Utiliza la información como guía educativa.
+                                </span>
+                            </div>
+
+                            <div>
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                <span>
+                                    No tomes decisiones médicas únicamente
+                                    con base en estos resultados.
+                                </span>
+                            </div>
+
+                            <div>
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                <span>
+                                    Ante una emergencia, busca atención
+                                    médica inmediata.
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="main-footer">
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+
+                <!-- BRAND -->
+
+                <div class="footer-brand">
+
+                    <a
+                        href="#inicio"
+                        class="brand footer-logo"
+                    >
+
+                        <div class="brand-icon">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+
+                        <div class="brand-text">
+
+                            <span class="brand-name">
+                                EduHealth
+                            </span>
+
+                            <span class="brand-subtitle">
+                                Educación en salud
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <p>
+                        Una herramienta educativa para comprender
+                        mejor la relación entre síntomas y diferentes
+                        temas de salud.
+                    </p>
+
+                </div>
+
+
+                <!-- LINKS -->
+
+                <div class="footer-column">
+
+                    <h3>
+                        Explorar
+                    </h3>
+
+                    <a href="#inicio">
+                        Inicio
+                    </a>
+
+                    <a href="#explorador">
+                        Explorador de síntomas
+                    </a>
+
+                    <a href="#como-funciona">
+                        Cómo funciona
+                    </a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <h3>
+                        Información
+                    </h3>
+
+                    <a href="#importante">
+                        Uso educativo
+                    </a>
+
+                    <a href="#importante">
+                        Seguridad
+                    </a>
+
+                    <a href="#importante">
+                        Limitaciones
+                    </a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <h3>
+                        EduHealth
+                    </h3>
+
+                    <p class="footer-note">
+                        Aprende sobre tu salud con información
+                        clara y organizada.
+                    </p>
+
+                    <div class="footer-status">
+
+                        <span></span>
+
+                        Plataforma disponible
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 EduHealth. Proyecto educativo.
+                </span>
+
+                <span>
+                    Diseñado para informar, no para diagnosticar.
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         SCROLL TO TOP
+    ====================================================== -->
+
+    <button
+        type="button"
+        id="scrollTopButton"
+        class="scroll-top-button"
+        aria-label="Volver arriba"
+        title="Volver arriba"
+    >
+
+        <i class="fa-solid fa-arrow-up"></i>
+
+    </button>
+
+
+    <!-- =====================================================
+         TOAST NOTIFICATIONS
+    ====================================================== -->
+
+    <div
+        id="toastContainer"
+        class="toast-container"
+        aria-live="polite"
+        aria-atomic="true"
+    ></div>
+
+
+    <!-- =====================================================
+         MODAL
+    ====================================================== -->
+
+    <div
+        id="informationModal"
+        class="modal-overlay hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+    >
+
+        <div class="modal-card">
+
+            <button
+                type="button"
+                id="closeModal"
+                class="modal-close"
+                aria-label="Cerrar"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+
+            <div class="modal-icon">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+
+            <h2 id="modalTitle">
+                Información
+            </h2>
+
+            <div
+                id="modalContent"
+                class="modal-content"
+            >
+                <!-- Contenido dinámico -->
+            </div>
+
+
+            <button
+                type="button"
+                id="modalConfirm"
+                class="primary-button modal-button"
+            >
+                Entendido
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
 
 </body>
 </html>
+```
