@@ -1,0 +1,428 @@
+/* ================================
+   SALUD ESCOLAR
+   Hoja de estilos principal
+================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f1f8f6;
+    color: #263238;
+    line-height: 1.6;
+}
+
+/* ================================
+   ENCABEZADO
+================================ */
+
+header {
+    background: linear-gradient(135deg, #00796b, #26a69a);
+    color: white;
+    padding: 45px 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    max-width: 800px;
+    margin: auto;
+    font-size: 1.05rem;
+}
+
+/* ================================
+   NAVEGACIÓN
+================================ */
+
+nav {
+    background: #004d40;
+    padding: 13px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 12px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    color: #b2dfdb;
+}
+
+/* ================================
+   CONTENEDOR
+================================ */
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+/* ================================
+   AVISO
+================================ */
+
+.warning {
+    background: #fff3cd;
+    border-left: 6px solid #ffb300;
+    padding: 18px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+
+/* ================================
+   BUSCADOR
+================================ */
+
+.search-box {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+}
+
+.search-box h2 {
+    color: #00796b;
+    margin-bottom: 10px;
+}
+
+.search-box p {
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 110px;
+    margin-top: 15px;
+    padding: 15px;
+
+    border: 2px solid #b2dfdb;
+    border-radius: 10px;
+
+    font-size: 16px;
+    line-height: 1.5;
+
+    resize: vertical;
+
+    outline: none;
+    transition: 0.2s;
+}
+
+textarea:focus {
+    border-color: #00796b;
+    box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
+}
+
+/* ================================
+   BOTONES
+================================ */
+
+button {
+    margin-top: 15px;
+    padding: 13px 22px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #00796b;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #004d40;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* ================================
+   RESULTADOS
+================================ */
+
+.result {
+    margin-top: 25px;
+    padding: 20px;
+
+    background: #e0f2f1;
+
+    border-radius: 10px;
+
+    display: none;
+}
+
+.result h3 {
+    color: #00695c;
+    margin-bottom: 10px;
+}
+
+.result-card {
+    background: white;
+    padding: 16px;
+    margin-top: 12px;
+
+    border-radius: 10px;
+
+    border-left: 4px solid #26a69a;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.result-card h4 {
+    color: #00796b;
+    margin-bottom: 6px;
+}
+
+/* ================================
+   TÍTULOS
+================================ */
+
+section > h2 {
+    color: #00695c;
+    margin-bottom: 10px;
+}
+
+/* ================================
+   TARJETAS DE SALUD
+================================ */
+
+.health-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 20px;
+}
+
+.card {
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+
+    border-top: 5px solid #26a69a;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.card h3 {
+    color: #00796b;
+    margin-bottom: 10px;
+}
+
+.card ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.card li {
+    margin-bottom: 5px;
+}
+
+/* ================================
+   TARJETA DE ALERTA
+================================ */
+
+.card.danger {
+    border-top-color: #e53935;
+}
+
+.card.danger h3 {
+    color: #c62828;
+}
+
+/* ================================
+   ETIQUETAS
+================================ */
+
+.tag {
+    display: inline-block;
+
+    background: #b2dfdb;
+    color: #004d40;
+
+    padding: 4px 9px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    margin: 3px;
+}
+
+/* ================================
+   PREVENCIÓN
+================================ */
+
+.prevention {
+    background: #e8f5e9;
+
+    padding: 25px;
+
+    margin-top: 40px;
+
+    border-radius: 15px;
+
+    border-left: 5px solid #43a047;
+}
+
+.prevention h2 {
+    color: #2e7d32;
+    margin-bottom: 10px;
+}
+
+.prevention li {
+    margin: 8px 0 8px 20px;
+}
+
+/* ================================
+   MENSAJE DE EMERGENCIA
+================================ */
+
+.emergency {
+    background: #ffebee;
+
+    border-left: 5px solid #e53935;
+
+    padding: 15px;
+
+    margin-top: 15px;
+
+    border-radius: 8px;
+
+    color: #8e0000;
+}
+
+/* ================================
+   ESTADOS DEL BUSCADOR
+================================ */
+
+.no-result {
+    background: #fff3cd;
+
+    border-left: 5px solid #ffb300;
+
+    padding: 15px;
+
+    border-radius: 8px;
+}
+
+.info-result {
+    background: white;
+
+    padding: 15px;
+
+    margin-top: 12px;
+
+    border-radius: 8px;
+
+    border-left: 4px solid #26a69a;
+}
+
+/* ================================
+   PIE DE PÁGINA
+================================ */
+
+footer {
+    margin-top: 50px;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+    background: #263238;
+
+    color: white;
+}
+
+footer p {
+    margin: 5px;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 700px) {
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 0.95rem;
+    }
+
+    nav {
+        padding: 10px 5px;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 5px 7px;
+        font-size: 14px;
+    }
+
+    .container {
+        width: 94%;
+    }
+
+    .search-box {
+        padding: 20px;
+    }
+
+    .health-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
